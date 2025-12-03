@@ -36,6 +36,7 @@
           "backgroundColor": "#ffffff",
           "dark": {
             "backgroundColor": "#000000"
+            
           }
         }
       ]
