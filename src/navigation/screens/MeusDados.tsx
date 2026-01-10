@@ -1,10 +1,10 @@
 import { Text } from '@react-navigation/elements';
 import { StyleSheet, View } from 'react-native';
 
-export function Settings() {
+export function MeusDados() {
   return (
     <View style={styles.container}>
-      <Text>Settings Screen</Text>
+      <Text>Meus Dados</Text>
     </View>
   );
 }
