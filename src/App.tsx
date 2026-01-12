@@ -13,7 +13,9 @@ export function App() {
 
   return (
     <PaperProvider theme={theme}>
+
       <Routes />
+      
     </PaperProvider>
   );
 }
