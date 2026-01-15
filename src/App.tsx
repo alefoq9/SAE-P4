@@ -5,7 +5,7 @@ import Routes from './navigation/routes';
 import { PaperProvider } from 'react-native-paper';
 import { theme } from './theme';
 
-SplashScreen.preventAutoHideAsync();
+//SplashScreen.preventAutoHideAsync();
 
 const prefix = createURL('/');
 
