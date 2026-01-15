@@ -35,7 +35,7 @@ export default function Carregamento() {
       // Pequeno delay opcional de 500ms para o usuário ver todas as bolas brancas
       const timer = setTimeout(() => {
         // Substitua 'NOME_DA_SUA_ROTA_DRAWER' pelo nome que está no seu Stack
-        navigation.replace('AppPrincipal'); 
+        navigation.replace('Login'); 
       }, 500);
 
       return () => clearTimeout(timer);
