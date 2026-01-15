@@ -1,19 +1,23 @@
-import { createURL } from 'expo-linking';
-import * as SplashScreen from 'expo-splash-screen';
-import * as React from 'react';
-import Routes from './navigation/routes';
+import React from 'react';
 import { PaperProvider } from 'react-native-paper';
-import { theme } from './theme';
+import { ThemeProvider, useAppTheme } from './context/ThemeContext';
+import { defaultTheme, highContrastTheme } from './theme';
+import Routes from './navigation/routes';
 
-//SplashScreen.preventAutoHideAsync();
-
-const prefix = createURL('/');
-
-export function App() {
+function Main() {
+  const { isHighContrast } = useAppTheme();
 
   return (
-    <PaperProvider theme={theme}>
+    <PaperProvider theme={isHighContrast ? highContrastTheme : defaultTheme}>
       <Routes />
     </PaperProvider>
+  );
+}
+
+export default function App() {
+  return (
+    <ThemeProvider>
+      <Main />
+    </ThemeProvider>
   );
 }

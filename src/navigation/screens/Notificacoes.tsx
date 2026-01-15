@@ -1,11 +1,10 @@
 import React from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
-import { Card, Text, useTheme, Divider, List } from 'react-native-paper';
+import { Card, Text, useTheme } from 'react-native-paper';
 
 export function Notificacoes() {
   const theme = useTheme();
 
-  // Notificações fictícias
   const notificacoes = [
     { titulo: 'Notícia', descricao: 'Novo auxílio publicado.', data: '19/12/2025 10:00' },
     { titulo: 'Agendamento Confirmado', descricao: 'Seu agendamento foi confirmado.', data: '18/12/2025 15:30' },
@@ -13,12 +12,17 @@ export function Notificacoes() {
   ];
 
   return (
-    <ScrollView style={styles.container}>
+    // Aplicamos a cor do fundo diretamente aqui usando o tema
+    <ScrollView style={[styles.container, { backgroundColor: theme.colors.background }]}>
+      <Text variant="headlineSmall" style={styles.headerTitle}>Notificações</Text>
+      
       {notificacoes.map((item, index) => (
         <View key={index} style={styles.notificationContainer}>
-          <Card style={styles.card} elevation={2}>
+          <Card style={styles.card} elevation={1}>
             <Card.Content>
-              <Text variant="titleMedium">{item.titulo}</Text>
+              <Text variant="titleMedium" style={{ color: theme.colors.primary, fontWeight: 'bold' }}>
+                {item.titulo}
+              </Text>
               <Text variant="bodyMedium" style={{ marginVertical: 4 }}>
                 {item.descricao}
               </Text>
@@ -27,7 +31,6 @@ export function Notificacoes() {
               </Text>
             </Card.Content>
           </Card>
-          {index < notificacoes.length - 1 && <Divider style={{ marginVertical: 8 }} />}
         </View>
       ))}
     </ScrollView>
@@ -37,13 +40,18 @@ export function Notificacoes() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: theme => theme.colors.background,
     padding: 16,
   },
+  headerTitle: {
+    marginBottom: 20,
+    fontWeight: 'bold',
+    color: '#333',
+  },
   notificationContainer: {
-    marginBottom: 8,
+    marginBottom: 12,
   },
   card: {
-    borderRadius: 12,
+    borderRadius: 8,
+    backgroundColor: '#fff',
   },
 });

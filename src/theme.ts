@@ -1,15 +1,26 @@
-import { DefaultTheme, MD3LightTheme } from 'react-native-paper';
+import { MD3LightTheme, MD3DarkTheme } from 'react-native-paper';
 
-export const theme = {
-  ...MD3LightTheme, // ou DefaultTheme
+// Tema Padrão (Baseado nas cores do SAE/Brasil)
+export const defaultTheme = {
+  ...MD3LightTheme,
   colors: {
     ...MD3LightTheme.colors,
-    primary: '#4CAF50', // cor principal do app
-    secondary: '#FFC107', // cor secundária
-    background: '#F5F5F5', // fundo geral
-    surface: '#09316eff', // fundo de cards
-    text: '#212121', // cor do texto
-    accent: '#03DAC6', // destaque
+    primary: '#1351B4', // Azul padrão
+    background: '#f5f5f5',
+    surface: '#ffffff',
   },
-  roundness: 12, // bordas arredondadas de cards/botões
+};
+
+// Tema de Alto Contraste (Cores vibrantes sobre fundo preto)
+export const highContrastTheme = {
+  ...MD3DarkTheme,
+  colors: {
+    ...MD3DarkTheme.colors,
+    primary: '#FFFF00', // Amarelo (máximo contraste no preto)
+    background: '#000000',
+    surface: '#121212',
+    onSurface: '#FFFFFF',
+    onBackground: '#FFFFFF',
+    outline: '#FFFF00', // Bordas em destaque
+  },
 };

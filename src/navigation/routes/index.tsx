@@ -6,6 +6,7 @@ import TopBar from "../../components/TopBar";
 import { Text } from "react-native";
 import Carregamento from "../screens/Carregamento";
 import Login from "../screens/Login";
+import Agendar from "../screens/Agendar";
 import { Inicio } from "../screens/Inicio";
 
 const Stack = createNativeStackNavigator();
@@ -21,7 +22,7 @@ export default function Routes() {
                 
                 {/* Esta é a única entrada para a parte logada do app */}
                 <Stack.Screen name="AppPrincipal" component={DrawerRoutes} />
-                
+                <Stack.Screen name="Agendar" component={Agendar} />
                 {/* REMOVA A LINHA ABAIXO: */}
                 {/* <Stack.Screen name="Inicio" component={Inicio} /> */}
             </Stack.Navigator>
