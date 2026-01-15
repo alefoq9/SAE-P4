@@ -19,7 +19,7 @@ export default function Login() {
 
     const handleLogin = () => {
         console.log("Logando...");
-        navigation.replace('Inicio');
+        navigation.replace('AppPrincipal');
     };
 
     const getBorderColor = (nomeCampo: string) => {
