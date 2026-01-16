@@ -4,7 +4,7 @@ import { Button, Text } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function BemVindo() {
+export default function Etapa1() {
 
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
@@ -16,10 +16,10 @@ export default function BemVindo() {
 
             <View style={styles.container}>
                 <Text style={styles.title}>
-                    Bem vindo ao SAE
+                    Passo 1
                 </Text>
                 <Text style={styles.secondaryText}>
-                    O SAE (Serviço de Apoio ao Estudante) é o seu portal de suporte na universidade.
+                    Nosso app foi criado para simplificar sua vida, permitindo o agendamento rápido de atendimentos essenciais.
                 </Text>
 
                 <Button
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
         margin: 40,
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 8, // se não funcionar, use marginHorizontal nos dots
+        gap: 8,
     },
     dot: {
         width: 8,

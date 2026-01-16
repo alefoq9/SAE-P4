@@ -2,11 +2,10 @@ import { Image, StyleSheet, View } from "react-native";
 import TopBar from "../../../components/TopBar"; 
 import { Button, Text } from "react-native-paper";
 
-// CORREÇÃO 2: Importar a tipagem da navegação
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function BemVindo() {
+export default function Etapa2() {
 
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
@@ -19,10 +18,10 @@ export default function BemVindo() {
 
             <View style={styles.container}>
                 <Text style={styles.title}>
-                    Bem vindo ao SAE
+                    Passo 2
                 </Text>
                 <Text style={styles.secondaryText}>
-                    O SAE (Serviço de Apoio ao Estudante) é o seu portal de suporte na universidade.
+                    Além disso, você encontra informações claras sobre auxílios, bolsas e programas de permanência.
                 </Text>
 
                 <Button
@@ -77,7 +76,7 @@ const styles = StyleSheet.create({
         margin: 40,
         flexDirection: 'row',
         justifyContent: 'center',
-        gap: 8, // se não funcionar, use marginHorizontal nos dots
+        gap: 8,
     },
     dot: {
         width: 8,

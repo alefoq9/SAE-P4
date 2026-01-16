@@ -2,11 +2,10 @@ import { Image, StyleSheet, View } from "react-native";
 import TopBar from "../../../components/TopBar"; 
 import { Button, Text } from "react-native-paper";
 
-// CORREÇÃO 2: Importar a tipagem da navegação
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function BemVindo() {
+export default function Etapa3() {
 
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
@@ -17,10 +16,10 @@ export default function BemVindo() {
 
             <View style={styles.container}>
                 <Text style={styles.title}>
-                    Bem vindo ao SAE
+                    Passo 3
                 </Text>
                 <Text style={styles.secondaryText}>
-                    O SAE (Serviço de Apoio ao Estudante) é o seu portal de suporte na universidade.
+                    Conectamos você ao suporte da universidade, tornando sua experiência mais acolhedora e garantindo sua permanência.
                 </Text>
 
                 <Button

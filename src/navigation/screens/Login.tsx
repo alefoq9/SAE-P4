@@ -28,7 +28,7 @@ export default function Login() {
         console.log("Logando...");
         // Agora o TypeScript sabe que .replace existe!
         // Certifique-se que o nome 'AppPrincipal' está registrado no seu arquivo de rotas (App.js ou index.tsx)
-        navigation.replace('AppPrincipal');
+        navigation.replace('BemVindo');
     };
 
     const getBorderColor = (nomeCampo: string) => {

@@ -1,27 +1,22 @@
 import React from 'react';
 import { Image, StyleSheet, View } from "react-native";
-// CORREÇÃO 1: Ajuste no caminho da importação (subindo 3 níveis)
 import TopBar from "../../../components/TopBar"; 
 import { Button, Text } from "react-native-paper";
 
-// CORREÇÃO 2: Importar a tipagem da navegação
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 export default function BemVindo() {
 
-    // CORREÇÃO 2: Tipar o hook para liberar o .replace()
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
     
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}> 
-            {/* Adicionei backgroundColor #fff para garantir fundo branco */}
             
             <TopBar />
 
             <Image 
                 style={{ alignSelf: 'center', marginTop: 60 }} 
-                // Certifique-se que essa imagem existe nessa pasta
                 source={require('../../../assets/bem-vindo.png')} 
             />
 
@@ -36,7 +31,6 @@ export default function BemVindo() {
                 <Button
                     buttonColor="#1351B4"
                     mode="contained"
-                    // Agora o replace funciona sem erro
                     onPress={() => { navigation.replace('Etapa1') }} 
                     style={{ alignSelf: 'center', marginTop: 16 }}
                 >
@@ -65,7 +59,7 @@ const styles = StyleSheet.create({
     },
     title: {
         fontSize: 24,
-        fontWeight: 'bold', // Adicionei negrito para destacar como título
+        fontWeight: 'bold',
         color: '#1351B4',
         marginBottom: 8
     },
@@ -76,7 +70,7 @@ const styles = StyleSheet.create({
         marginBottom: 24
     },
     containerDots: {
-        marginBottom: 40, // Mudei de margin para marginBottom para fixar embaixo
+        marginBottom: 40,
         flexDirection: 'row',
         justifyContent: 'center',
         gap: 8,

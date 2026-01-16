@@ -25,16 +25,18 @@ export default function Routes() {
                 <Stack.Screen name="Splash" component={Carregamento} />
                 <Stack.Screen name="Login" component={Login} />
                 <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
+
+                <Stack.Screen name="BemVindo" component={BemVindo} />
+                <Stack.Screen name="Etapa1" component={Etapa1} />
+                <Stack.Screen name="Etapa2" component={Etapa2} />
+                <Stack.Screen name="Etapa3" component={Etapa3} />
                 
                 {/* Esta é a única entrada para a parte logada do app */}
                 <Stack.Screen name="AppPrincipal" component={DrawerRoutes} />
                 <Stack.Screen name="Agendar" component={Agendar} />
                 {/* REMOVA A LINHA ABAIXO: */}
                 {/* <Stack.Screen name="Inicio" component={Inicio} /> */}
-                <Stack.Screen name="BemVindo" component={BemVindo} />
-                <Stack.Screen name="Etapa1" component={Etapa1} />
-                <Stack.Screen name="Etapa2" component={Etapa2} />
-                <Stack.Screen name="Etapa3" component={Etapa3} />
+                
             </Stack.Navigator>
         </NavigationContainer>
     )
