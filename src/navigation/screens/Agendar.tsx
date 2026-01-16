@@ -2,22 +2,16 @@ import React, { useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StyleSheet, View, ScrollView, Platform } from 'react-native';
 import { 
-  Text, 
-  RadioButton, 
-  Button, 
-  Card, 
-  Divider, 
-  List, 
-  TextInput,
-  Portal,
-  Modal,
-  useTheme
+  Text, RadioButton, Button, Card, Divider, 
+  List, TextInput, Portal, Modal, useTheme 
 } from 'react-native-paper';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { useAgendamentos } from '../../context/AgendamentosContext';
 
 export default function Agendar() {
   const navigation = useNavigation();
-  const theme = useTheme(); // Para usar as cores do sistema (Alto Contraste)
+  const theme = useTheme();
+  const { adicionarAgendamento } = useAgendamentos();
 
   // --- ESTADOS DO FORMULÁRIO ---
   const [categoria, setCategoria] = useState<string>('Psicologia');
@@ -25,12 +19,11 @@ export default function Agendar() {
   const [modalidade, setModalidade] = useState<string>('Presencial');
   const [date, setDate] = useState(new Date());
   
-  // Estados de Controle de UI
   const [showPicker, setShowPicker] = useState(false);
   const [pickerMode, setPickerMode] = useState<'date' | 'time'>('date');
   const [visible, setVisible] = useState(false);
 
-  // --- FUNÇÕES AUXILIARES ---
+  // --- FUNÇÕES ---
   const formatDate = (d: Date) => d.toLocaleDateString('pt-BR');
   const formatTime = (d: Date) => d.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 
@@ -40,10 +33,8 @@ export default function Agendar() {
   };
 
   const openPicker = (mode: 'date' | 'time') => {
-    // No Web, o DateTimePicker nativo do mobile não funciona bem.
-    // Usamos o prompt padrão ou um input de data no futuro, por enquanto evitamos o crash.
     if (Platform.OS === 'web') {
-      alert("Seletor de data nativo disponível apenas no celular (Expo Go).");
+      alert("Seletor nativo disponível apenas no celular.");
       return;
     }
     setPickerMode(mode);
@@ -51,12 +42,22 @@ export default function Agendar() {
   };
 
   const finalizarAgendamento = () => {
+    const novo = {
+      id: Math.random().toString(36).substr(2, 9),
+      tipo: categoria,
+      data: formatDate(date),
+      hora: formatTime(date),
+      modalidade: modalidade,
+      campus: campus
+    };
+
+    adicionarAgendamento(novo);
     setVisible(true);
   };
 
   const fecharESair = () => {
     setVisible(false);
-    navigation.goBack(); // Volta para a tela de listagem
+    navigation.goBack();
   };
 
   return (
@@ -68,12 +69,8 @@ export default function Agendar() {
 
         <Card style={styles.card} mode="elevated">
           <Card.Content>
-            
-            {/* 1. CATEGORIA */}
             <List.Section>
-              <List.Subheader style={{ color: theme.colors.secondary, fontWeight: 'bold' }}>
-                O que você precisa?
-              </List.Subheader>
+              <List.Subheader style={styles.subheader}>O que você precisa?</List.Subheader>
               <RadioButton.Group onValueChange={v => setCategoria(v)} value={categoria}>
                 <RadioButton.Item label="Psicologia" value="Psicologia" />
                 <RadioButton.Item label="Serviço Social" value="Serviço Social" />
@@ -83,11 +80,8 @@ export default function Agendar() {
 
             <Divider />
 
-            {/* 2. CAMPUS */}
             <List.Section>
-              <List.Subheader style={{ color: theme.colors.secondary, fontWeight: 'bold' }}>
-                Localização
-              </List.Subheader>
+              <List.Subheader style={styles.subheader}>Localização</List.Subheader>
               <RadioButton.Group onValueChange={v => setCampus(v)} value={campus}>
                 <RadioButton.Item label="Campus Central" value="Campus Central" />
                 <RadioButton.Item label="Campus Pici" value="Campus Pici" />
@@ -96,11 +90,8 @@ export default function Agendar() {
 
             <Divider />
 
-            {/* 3. MODALIDADE */}
             <List.Section>
-              <List.Subheader style={{ color: theme.colors.secondary, fontWeight: 'bold' }}>
-                Formato do atendimento
-              </List.Subheader>
+              <List.Subheader style={styles.subheader}>Formato do atendimento</List.Subheader>
               <RadioButton.Group onValueChange={v => setModalidade(v)} value={modalidade}>
                 <View style={styles.row}>
                   <RadioButton.Item label="Presencial" value="Presencial" style={{ flex: 1 }} />
@@ -111,14 +102,11 @@ export default function Agendar() {
 
             <Divider />
 
-            {/* 4. DATA E HORA */}
             <List.Section>
-              <List.Subheader style={{ color: theme.colors.secondary, fontWeight: 'bold' }}>
-                Escolha o horário
-              </List.Subheader>
+              <List.Subheader style={styles.subheader}>Escolha o horário</List.Subheader>
               <View style={styles.dateTimeWrapper}>
                 <TextInput
-                  label="Data da sessão"
+                  label="Data"
                   value={formatDate(date)}
                   mode="outlined"
                   editable={false}
@@ -137,65 +125,30 @@ export default function Agendar() {
                 />
               </View>
             </List.Section>
-
           </Card.Content>
 
           <Card.Actions style={styles.footer}>
-            <Button 
-              mode="contained" 
-              onPress={finalizarAgendamento}
-              style={styles.btnConfirmar}
-              buttonColor={theme.colors.primary}
-              textColor={theme.colors.onPrimary}
-            >
+            <Button mode="contained" onPress={finalizarAgendamento} style={styles.btnConfirmar}>
               Confirmar Agendamento
             </Button>
           </Card.Actions>
         </Card>
       </View>
 
-      {/* SELETOR NATIVO (Apenas Mobile) */}
       {showPicker && Platform.OS !== 'web' && (
-        <DateTimePicker
-          value={date}
-          mode={pickerMode}
-          is24Hour={true}
-          display={Platform.OS === 'ios' ? 'spinner' : 'default'}
-          onChange={onPickerChange}
-        />
+        <DateTimePicker value={date} mode={pickerMode} is24Hour={true} onChange={onPickerChange} />
       )}
 
-      {/* PORTAL PARA O MODAL DE SUCESSO */}
       <Portal>
-        <Modal 
-          visible={visible} 
-          onDismiss={fecharESair} 
-          contentContainerStyle={[styles.modal, { backgroundColor: theme.colors.surface }]}
-        >
-          <Text variant="headlineSmall" style={[styles.modalTitle, { color: theme.colors.primary }]}>
-            🎉 Agendado!
-          </Text>
-          <Text variant="bodyMedium" style={[styles.modalText, { color: theme.colors.onSurface }]}>
-            Seu atendimento de **{categoria}** foi solicitado com sucesso.
-          </Text>
+        <Modal visible={visible} onDismiss={fecharESair} contentContainerStyle={[styles.modal, { backgroundColor: theme.colors.surface }]}>
+          <Text variant="headlineSmall" style={[styles.modalTitle, { color: theme.colors.primary }]}>🎉 Agendado!</Text>
+          <Text variant="bodyMedium" style={styles.modalText}>Seu atendimento de **{categoria}** foi solicitado.</Text>
           <Divider style={{ marginVertical: 10 }} />
-          <Text variant="bodySmall" style={{ color: theme.colors.onSurfaceVariant }}>
-            Local: {campus} ({modalidade})
-          </Text>
-          <Text variant="bodySmall" style={{ color: theme.colors.onSurfaceVariant }}>
-            Data: {formatDate(date)} às {formatTime(date)}
-          </Text>
-          
-          <Button 
-            mode="contained" 
-            onPress={fecharESair} 
-            style={{ marginTop: 20 }}
-          >
-            Entendido
-          </Button>
+          <Text variant="bodySmall">Unidade: {campus}</Text>
+          <Text variant="bodySmall">Data: {formatDate(date)} às {formatTime(date)}</Text>
+          <Button mode="contained" onPress={fecharESair} style={{ marginTop: 20 }}>Entendido</Button>
         </Modal>
       </Portal>
-
     </ScrollView>
   );
 }
@@ -206,16 +159,12 @@ const styles = StyleSheet.create({
   titulo: { marginBottom: 20, textAlign: 'center', fontWeight: 'bold' },
   card: { borderRadius: 12 },
   row: { flexDirection: 'row' },
-  dateTimeWrapper: { paddingHorizontal: 8, gap: 10 },
+  dateTimeWrapper: { gap: 10 },
   input: { backgroundColor: 'transparent' },
   footer: { padding: 16 },
-  btnConfirmar: { flex: 1, borderRadius: 8, paddingVertical: 4 },
-  modal: {
-    padding: 24,
-    margin: 20,
-    borderRadius: 16,
-    elevation: 5,
-  },
+  btnConfirmar: { flex: 1, paddingVertical: 4 },
+  subheader: { fontWeight: 'bold' },
+  modal: { padding: 24, margin: 20, borderRadius: 16 },
   modalTitle: { textAlign: 'center', fontWeight: 'bold', marginBottom: 12 },
-  modalText: { textAlign: 'center', marginBottom: 10 }
+  modalText: { textAlign: 'center' }
 });

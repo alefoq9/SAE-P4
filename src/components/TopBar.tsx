@@ -1,22 +1,37 @@
-import { View, Image, StyleSheet, TouchableOpacity } from "react-native";
+import React from "react";
+import { View, Image, StyleSheet, TouchableOpacity, Platform, StatusBar } from "react-native";
 import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { DrawerNavigationProp } from '@react-navigation/drawer';
 
 export default function TopBar() {
-    // Pegamos a tipagem da navegação do Drawer para liberar o 'openDrawer'
     const navigation = useNavigation<DrawerNavigationProp<any>>();
+    const canGoBack = navigation.canGoBack();
+
+    const handlePress = () => {
+        if (canGoBack) {
+            navigation.goBack();
+        } else {
+            navigation.openDrawer();
+        }
+    };
 
     return (
         <View style={styles.topBar}>
-            {/* Botão Sanduíche */}
+            {/* Botão na Esquerda */}
             <TouchableOpacity 
-                onPress={() => navigation.openDrawer()}
+                onPress={handlePress}
                 style={styles.menuButton}
+                activeOpacity={0.7}
             >
-                <MaterialCommunityIcons name="menu" size={24} color="#FFFFFF" />
+                <MaterialCommunityIcons 
+                    name={canGoBack ? "arrow-left" : "menu"} 
+                    size={24} 
+                    color="#FFFFFF" 
+                />
             </TouchableOpacity>
 
+            {/* Logo na Direita */}
             <Image
                 source={require("../assets/logo_sae-ufc.png")}
                 style={styles.image}
@@ -27,15 +42,18 @@ export default function TopBar() {
 
 const styles = StyleSheet.create({
     topBar: {
-        height: 50, // Aumentei um pouco para facilitar o clique no ícone (toque humano)
-        backgroundColor: '#0B1B77', // Seu azul marinho padrão
-        flexDirection: 'row', // Alinha botão e logo na mesma linha
+        // Altura restaurada para o seu padrão original (50px de conteúdo + status bar)
+        height: Platform.OS === 'android' ? 50 + (StatusBar.currentHeight || 0) : 90,
+        backgroundColor: '#0B1B77',
+        flexDirection: 'row',
         alignItems: 'center',
         paddingHorizontal: 15,
-        justifyContent: 'space-between',
+        // Space-between garante: item 1 (botão) na esquerda, item 2 (logo) na direita
+        justifyContent: 'space-between', 
+        paddingTop: Platform.OS === 'android' ? StatusBar.currentHeight : 40,
     },
     menuButton: {
-        marginRight: 10, // Espaço entre o botão e a logo
+        paddingVertical: 5,
     },
     image: {
         width: 80,
