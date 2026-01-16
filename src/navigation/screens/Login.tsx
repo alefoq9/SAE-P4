@@ -100,6 +100,18 @@ export default function Login() {
                     onPress={() => alert('Lógica do Google')}
                 />
             </View>
+            
+            {/* Área de Cadastro / Primeiro Acesso */}
+            <View style={styles.cadastroContainer}>
+                <Text style={styles.textoCadastro}>Ainda não tem conta?</Text>
+                
+                <TextLink 
+                    title="Primeiro Acesso" 
+                    onPress={() => navigation.navigate('Cadastro')} // Certifique-se de criar essa rota depois
+                    // Aqui sobrescrevemos o alinhamento para ficar no centro
+                    customStyle={{ alignSelf: 'center', marginTop: 0 }} 
+                />
+            </View>
 
         </View>
     )
@@ -147,9 +159,20 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
     marginBottom: 10
 },
-  textoOu: {
-    marginHorizontal: 10,
-    color: '#999',
+textoOu: {
+  marginHorizontal: 10,
+  color: '#999',
+  fontSize: 14,
+},
+cadastroContainer: {
+    marginTop: 30, // Dá um espaço dos botões de cima
+    flexDirection: 'row', // Coloca o texto e o link na mesma linha
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5, // Espaço entre a pergunta e o link
+  },
+  textoCadastro: {
+    color: '#333',
     fontSize: 14,
   }
 });

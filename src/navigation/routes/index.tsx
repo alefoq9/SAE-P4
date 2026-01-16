@@ -8,6 +8,7 @@ import Carregamento from "../screens/Carregamento";
 import Login from "../screens/Login";
 import Agendar from "../screens/Agendar";
 import { Inicio } from "../screens/Inicio";
+import Cadastro from "../screens/Cadastro";
 
 const Stack = createNativeStackNavigator();
 
@@ -19,6 +20,7 @@ export default function Routes() {
             <Stack.Navigator screenOptions={{ headerShown: false }}>
                 <Stack.Screen name="Splash" component={Carregamento} />
                 <Stack.Screen name="Login" component={Login} />
+                <Stack.Screen name="Cadastro" component={Cadastro} options={{ headerShown: false }} />
                 
                 {/* Esta é a única entrada para a parte logada do app */}
                 <Stack.Screen name="AppPrincipal" component={DrawerRoutes} />
