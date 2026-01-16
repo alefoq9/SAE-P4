@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
+// 1. Importar a tipagem correta da navegação Stack
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import Logo from '../../assets/logo-sae-tagline.png';
@@ -12,13 +15,19 @@ export default function Login() {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
     const [esconderSenha, setEsconderSenha] = useState(true);
-    const [campoFocado, setCampoFocado] = useState(null);
-    const navigation = useNavigation();
+    
+    // 2. CORREÇÃO: Avisar que esse estado aceita string OU null
+    const [campoFocado, setCampoFocado] = useState<string | null>(null);
+
+    // 3. CORREÇÃO: Tipar o hook de navegação para habilitar o .replace()
+    const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
     const [carregando, setCarregando] = useState(false);
 
     const handleLogin = () => {
         console.log("Logando...");
+        // Agora o TypeScript sabe que .replace existe!
+        // Certifique-se que o nome 'AppPrincipal' está registrado no seu arquivo de rotas (App.js ou index.tsx)
         navigation.replace('AppPrincipal');
     };
 
@@ -127,7 +136,7 @@ const styles = StyleSheet.create({
     height: '100%',
     fontSize: 16,
     color: '#333',
-    outlineStyle: 'none' 
+    // 4. CORREÇÃO: A linha 'outlineStyle: none' foi removida pois causava erro no Mobile
 },
   icon: {
     padding: 5
