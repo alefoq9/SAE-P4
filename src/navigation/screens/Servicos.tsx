@@ -23,7 +23,6 @@ export function Servicos() {
         Conheça nossos serviços de suporte. Nosso objetivo é fortalecer seu vínculo com a universidade e garantir sua permanência acadêmica.
       </Text>
 
-      {/* --- CARD 1: ACOLHIMENTO PSICOSSOCIAL --- */}
       <Card style={[styles.card, { backgroundColor: theme.colors.surface }]} elevation={2}>
         <Card.Content>
           <Text variant="titleLarge" style={[styles.title1, { color: theme.colors.primary }]}>
@@ -39,7 +38,6 @@ export function Servicos() {
             style={styles.image}
           />
 
-          {/* TEXTO RECUPERADO AQUI */}
           <Text variant="bodyMedium" style={[styles.description, { color: theme.colors.onSurface }]}>
             Oferecemos suporte emocional e psicológico para lidar com os desafios da vida universitária e pessoal.
           </Text>
@@ -80,7 +78,6 @@ export function Servicos() {
         </Card.Content>
       </Card>
 
-      {/* --- CARD 2: SERVIÇO SOCIAL --- */}
       <Card style={[styles.card, { backgroundColor: theme.colors.surface }]} elevation={2}>
         <Card.Content>
           <Text variant="titleLarge" style={[styles.title1, { color: theme.colors.primary }]}>
@@ -96,7 +93,6 @@ export function Servicos() {
             style={styles.image}
           />
 
-          {/* TEXTO RECUPERADO AQUI */}
           <Text variant="bodyMedium" style={[styles.description, { color: theme.colors.onSurface }]}>
             Oferece orientação em questões socioeconômicas, violências e encaminhamento para a rede de saúde e bem-estar.
           </Text>
@@ -130,7 +126,6 @@ export function Servicos() {
         </Card.Content>
       </Card>
 
-      {/* --- CARD 3: ORIENTAÇÃO PEDAGÓGICA --- */}
       <Card style={[styles.card, { backgroundColor: theme.colors.surface }]} elevation={2}>
         <Card.Content>
           <Text variant="titleLarge" style={[styles.title1, { color: theme.colors.primary }]}>
@@ -146,7 +141,6 @@ export function Servicos() {
             style={styles.image}
           />
 
-          {/* TEXTO RECUPERADO AQUI */}
           <Text variant="bodyMedium" style={[styles.description, { color: theme.colors.onSurface }]}>
             Foco em cognição e aprendizagem significativa, ajudando a superar dificuldades acadêmicas.
           </Text>

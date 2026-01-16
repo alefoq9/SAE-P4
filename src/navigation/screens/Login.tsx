@@ -107,7 +107,7 @@ export default function Login() {
                 
                 <TextLink 
                     title="Primeiro Acesso" 
-                    onPress={() => navigation.navigate('Cadastro')} // Certifique-se de criar essa rota depois
+                    onPress={() => navigation.navigate('Cadastro')}
                     // Aqui sobrescrevemos o alinhamento para ficar no centro
                     customStyle={{ alignSelf: 'center', marginTop: 0 }} 
                 />
@@ -148,7 +148,6 @@ const styles = StyleSheet.create({
     height: '100%',
     fontSize: 16,
     color: '#333',
-    // 4. CORREÇÃO: A linha 'outlineStyle: none' foi removida pois causava erro no Mobile
 },
   icon: {
     padding: 5
