@@ -28,38 +28,32 @@ export default function Routes() {
       <Stack.Navigator 
         initialRouteName="Splash"
         screenOptions={{ 
-          headerShown: false, // Por padrão, ocultamos o header nativo do Stack
+          headerShown: false, // Esconde a barra padrão de TODAS as telas
           animation: 'slide_from_right' 
         }}
       >
-        {/* --- FLUXO INICIAL (SEM TOPBAR) --- */}
+        {/* --- TELAS SEM NENHUMA TOPBAR --- */}
         <Stack.Screen name="Splash" component={Carregamento} />
         <Stack.Screen name="Login" component={Login} />
         <Stack.Screen name="Cadastro" component={Cadastro} />
-
-        {/* --- FLUXO ONBOARDING (SEM TOPBAR) --- */}
         <Stack.Screen name="BemVindo" component={BemVindo} />
         <Stack.Screen name="Etapa1" component={Etapa1} />
         <Stack.Screen name="Etapa2" component={Etapa2} />
         <Stack.Screen name="Etapa3" component={Etapa3} />
 
-        {/* --- ÁREA LOGADA (DRAWER GERENCIA O PRÓPRIO HEADER) --- */}
-        <Stack.Screen 
-          name="AppPrincipal" 
-          component={DrawerRoutes} 
-        />
+        {/* --- ÁREA LOGADA (O Drawer terá sua própria lógica interna) --- */}
+        <Stack.Screen name="AppPrincipal" component={DrawerRoutes} />
 
-        {/* --- TELA DE AGENDAR (FORA DO DRAWER, COM TOPBAR) --- */}
+        {/* --- TELA ESPECÍFICA COM SUA TOPBAR CUSTOMIZADA --- */}
         <Stack.Screen 
           name="Agendar" 
           component={Agendar} 
           options={{ 
-            headerShown: true, // Ativamos para esta tela específica
-            header: () => <TopBar />, // Injetamos sua TopBar customizada
-            animation: 'slide_from_bottom' // Transição elegante estilo MD3
+            headerShown: true, // Ativa apenas aqui
+            header: () => <TopBar />, // Injeta seu componente
+            animation: 'slide_from_bottom' 
           }} 
         />
-
       </Stack.Navigator>
     </NavigationContainer>
   );

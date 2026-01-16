@@ -12,8 +12,6 @@ export default function BemVindo() {
     
     return (
         <View style={{ flex: 1, backgroundColor: '#fff' }}> 
-            
-            <TopBar />
 
             <Image 
                 style={{ alignSelf: 'center', marginTop: 60 }} 

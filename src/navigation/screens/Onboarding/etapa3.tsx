@@ -11,7 +11,6 @@ export default function Etapa3() {
 
     return (
         <View style={{ flex: 1, }}>
-            <TopBar />
             <Image style={{ alignSelf: 'center', marginTop: 60 }} source={require('../../../assets/etapa3.png')} />
 
             <View style={styles.container}>

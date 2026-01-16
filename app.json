@@ -10,14 +10,18 @@
     "scheme": "sae",
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.sae"
+      "bundleIdentifier": "com.sae",
+      "runtimeVersion": {
+        "policy": "appVersion"
+      }
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./src/assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.sae"
+      "package": "com.sae",
+      "runtimeVersion": "1.0.0"
     },
     "web": {
       "favicon": ".src/assets/favicon.png"
@@ -32,6 +36,14 @@
         }
       ],
       "@react-native-community/datetimepicker"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "9b014dea-e7be-40a1-a16e-814a0809e77a"
+      }
+    },
+    "updates": {
+      "url": "https://u.expo.dev/9b014dea-e7be-40a1-a16e-814a0809e77a"
+    }
   }
 }
