@@ -9,6 +9,10 @@ import Login from "../screens/Login";
 import Agendar from "../screens/Agendar";
 import { Inicio } from "../screens/Inicio";
 import Cadastro from "../screens/Cadastro";
+import BemVindo from "../screens/Onboarding/BoasVindas";
+import Etapa1 from "../screens/Onboarding/etapa1";
+import Etapa2 from "../screens/Onboarding/etapa2";
+import Etapa3 from "../screens/Onboarding/etapa3";
 
 const Stack = createNativeStackNavigator();
 
@@ -27,6 +31,10 @@ export default function Routes() {
                 <Stack.Screen name="Agendar" component={Agendar} />
                 {/* REMOVA A LINHA ABAIXO: */}
                 {/* <Stack.Screen name="Inicio" component={Inicio} /> */}
+                <Stack.Screen name="BemVindo" component={BemVindo} />
+                <Stack.Screen name="Etapa1" component={Etapa1} />
+                <Stack.Screen name="Etapa2" component={Etapa2} />
+                <Stack.Screen name="Etapa3" component={Etapa3} />
             </Stack.Navigator>
         </NavigationContainer>
     )

@@ -5,7 +5,8 @@ import { Switch, List, Divider, useTheme } from 'react-native-paper';
 
 import TabRoutes from './tab.routes'
 import StackRoutes from './stack.routes';
-import TopBar from '../../components/TopBar';
+import TopBar from '../../components/TopBar';''
+import { Servicos } from '../screens/Servicos';
 // Importe o seu contexto de tema criado anteriormente
 import { useAppTheme } from '../../context/ThemeContext'; 
 
@@ -64,6 +65,14 @@ export default function DrawerRoutes() {
                 options={{
                     drawerIcon: ({ color, size }) => <MaterialCommunityIcons name="account" color={color} size={size} />,
                     drawerLabel: 'Meu Perfil'
+                }}
+            />
+            <Drawer.Screen
+                name="services"
+                component={Servicos}
+                options={{
+                    drawerIcon: ({ color, size }) => <MaterialCommunityIcons name="car-side" color={color} size={size} />,
+                    drawerLabel: 'Serviços'
                 }}
             />
         </Drawer.Navigator>
