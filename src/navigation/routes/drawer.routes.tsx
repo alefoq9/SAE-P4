@@ -26,7 +26,7 @@ function CustomDrawerContent(props: any) {
   const theme = useTheme();
   const navigation = useNavigation();
 
-  const handleLogout = () => {
+const handleLogout = () => {
     Alert.alert(
       "Sair",
       "Deseja realmente sair do aplicativo?",
@@ -36,10 +36,13 @@ function CustomDrawerContent(props: any) {
           text: "Sair", 
           style: "destructive", 
           onPress: () => {
-            navigation.dispatch(
+            // Buscamos o navegador pai (o Stack principal que contém Login e AppPrincipal)
+            const rootNavigation = navigation.getParent() || navigation;
+            
+            rootNavigation.dispatch(
               CommonActions.reset({
                 index: 0,
-                routes: [{ name: 'Login' }],
+                routes: [{ name: 'Login' }], // Agora ele vai encontrar o Login
               })
             );
           } 
@@ -47,7 +50,7 @@ function CustomDrawerContent(props: any) {
       ]
     );
   };
-
+  
   return (
     <DrawerContentScrollView 
       {...props} 
