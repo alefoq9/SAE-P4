@@ -4,6 +4,7 @@ import { ThemeProvider, useAppTheme } from './context/ThemeContext';
 import { defaultTheme, highContrastTheme } from './theme';
 import Routes from './navigation/routes';
 import { AgendamentosProvider } from './context/AgendamentosContext';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 function Main() {
   const { isHighContrast } = useAppTheme();
@@ -17,10 +18,12 @@ function Main() {
 
 export default function App() {
   return (
+    <SafeAreaProvider>
     <ThemeProvider>
       <AgendamentosProvider>
         <Main />
       </AgendamentosProvider>
     </ThemeProvider>
+    </SafeAreaProvider>
   );
 }

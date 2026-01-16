@@ -160,10 +160,11 @@ const styles = StyleSheet.create({
   card: { borderRadius: 12 },
   row: { flexDirection: 'row' },
   dateTimeWrapper: { gap: 10 },
-  input: { backgroundColor: 'transparent' },
+  input: { backgroundColor: 'transparent', marginBottom: 10 },
   footer: { padding: 16 },
   btnConfirmar: { flex: 1, paddingVertical: 4 },
-  subheader: { fontWeight: 'bold' },
+  subheader: { fontWeight: 'bold',
+    fontSize: 16},
   modal: { padding: 24, margin: 20, borderRadius: 16 },
   modalTitle: { textAlign: 'center', fontWeight: 'bold', marginBottom: 12 },
   modalText: { textAlign: 'center' }

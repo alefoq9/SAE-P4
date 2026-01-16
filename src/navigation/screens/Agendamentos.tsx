@@ -23,26 +23,65 @@ export function Agendamentos() {
   };
 
   const renderItem = ({ item }: any) => (
-    <Card style={styles.card} mode="elevated">
+    <Card 
+      style={[styles.card, { backgroundColor: theme.colors.surface }]} 
+      mode="elevated"
+    >
       <Card.Content>
         <View style={styles.headerRow}>
-          <Text variant="titleMedium" style={[styles.tipoText, { color: theme.colors.primary }]}>
+          <Text 
+            variant="titleMedium" 
+            style={[styles.tipoText, { color: theme.colors.primary }]}
+          >
             {item.tipo}
           </Text>
-          <IconButton icon="trash-can-outline" iconColor={theme.colors.error} size={22} onPress={() => handleExcluir(item.id)} />
+          <IconButton 
+            icon="trash-can-outline" 
+            iconColor={theme.colors.error} 
+            size={22} 
+            onPress={() => handleExcluir(item.id)} 
+          />
         </View>
-        <Divider style={styles.divider} />
+        
+        <Divider style={[styles.divider, { backgroundColor: theme.colors.outlineVariant }]} />
+        
         <View style={styles.infoRow}>
-          <Text variant="labelMedium" style={styles.label}>Data/Hora:</Text>
-          <Text variant="bodyMedium">{item.data} - {item.hora}</Text>
+          <Text 
+            variant="labelMedium" 
+            style={[styles.label, { color: theme.colors.onSurfaceVariant }]}
+          >
+            Data/Hora:
+          </Text>
+          <Text variant="bodyMedium" style={{ color: theme.colors.onSurface }}>
+            {item.data} - {item.hora}
+          </Text>
         </View>
+
         <View style={styles.infoRow}>
-          <Text variant="labelMedium" style={styles.label}>Campus:</Text>
-          <Text variant="bodyMedium">{item.campus}</Text>
+          <Text 
+            variant="labelMedium" 
+            style={[styles.label, { color: theme.colors.onSurfaceVariant }]}
+          >
+            Campus:
+          </Text>
+          <Text variant="bodyMedium" style={{ color: theme.colors.onSurface }}>
+            {item.campus}
+          </Text>
         </View>
+
         <View style={styles.infoRow}>
-          <Text variant="labelMedium" style={styles.label}>Modalidade:</Text>
-          <Text variant="bodyMedium" style={{ fontWeight: 'bold' }}>{item.modalidade}</Text>
+          <Text 
+            variant="labelMedium" 
+            style={[styles.label, { color: theme.colors.onSurfaceVariant }]}
+          >
+            Modalidade:
+          </Text>
+          <Text 
+            variant="bodyMedium" 
+            style={{ fontWeight: 'bold', color: theme.colors.onSurface }}
+          >
+            {item.modalidade}
+          </Text>
         </View>
       </Card.Content>
     </Card>
@@ -50,14 +89,23 @@ export function Agendamentos() {
 
   return (
     <View style={[styles.container, { backgroundColor: theme.colors.background }]}>
-      <Text variant="headlineSmall" style={styles.headerTitle}>Meus Agendamentos</Text>
+      <Text 
+        variant="headlineSmall" 
+        style={[styles.headerTitle, { color: theme.colors.onSurface }]}
+      >
+        Meus Agendamentos
+      </Text>
       
       <FlatList
         data={lista}
         keyExtractor={(item) => item.id}
         renderItem={renderItem}
         contentContainerStyle={styles.listContainer}
-        ListEmptyComponent={<Text style={styles.empty}>Nenhum agendamento para mostrar.</Text>}
+        ListEmptyComponent={
+          <Text style={[styles.empty, { color: theme.colors.onSurfaceVariant }]}>
+            Nenhum agendamento para mostrar.
+          </Text>
+        }
       />
 
       <FAB
@@ -65,22 +113,58 @@ export function Agendamentos() {
         label="Novo Agendamento"
         style={[styles.fab, { backgroundColor: theme.colors.primary }]}
         onPress={() => navigation.navigate('Agendar')}
-        color="white"
+        // onPrimary garante que o ícone e texto do botão contrastem com a cor do FAB
+        color={theme.colors.onPrimary} 
       />
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
-  headerTitle: { marginBottom: 20, fontWeight: 'bold' },
-  listContainer: { paddingBottom: 100 },
-  card: { marginBottom: 16, borderRadius: 8 },
-  headerRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' },
-  tipoText: { fontWeight: 'bold', flex: 1 },
-  divider: { marginVertical: 8 },
-  infoRow: { flexDirection: 'row', marginBottom: 4 },
-  label: { width: 90, color: '#666' },
-  fab: { position: 'absolute', margin: 16, right: 0, bottom: 20 },
-  empty: { textAlign: 'center', marginTop: 50, color: '#666' }
+  container: { 
+    flex: 1, 
+    padding: 16 
+  },
+  headerTitle: { 
+    marginBottom: 20, 
+    fontWeight: 'bold' 
+  },
+  listContainer: { 
+    paddingBottom: 100 
+  },
+  card: { 
+    marginBottom: 16, 
+    borderRadius: 12, // Bordas um pouco mais arredondadas para o Material 3
+  },
+  headerRow: { 
+    flexDirection: 'row', 
+    justifyContent: 'space-between', 
+    alignItems: 'center' 
+  },
+  tipoText: { 
+    fontWeight: 'bold', 
+    flex: 1 
+  },
+  divider: { 
+    marginVertical: 8 
+  },
+  infoRow: { 
+    flexDirection: 'row', 
+    marginBottom: 6 
+  },
+  label: { 
+    width: 100, // Aumentado levemente para evitar quebra de linha em fontes grandes
+    fontWeight: '600'
+  },
+  fab: { 
+    position: 'absolute', 
+    margin: 16, 
+    right: 0, 
+    bottom: Platform.OS === 'web' ? 20 : 80 // Ajuste para não cobrir a Tab Bar no Android
+  },
+  empty: { 
+    textAlign: 'center', 
+    marginTop: 50,
+    fontSize: 16
+  }
 });
