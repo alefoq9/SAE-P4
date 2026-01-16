@@ -1,29 +1,39 @@
-import { View, Text, StyleSheet } from 'react-native';
+import React from 'react';
+import { View, StyleSheet } from 'react-native';
 import { MaterialCommunityIcons } from '@expo/vector-icons';
+// Importamos o Text do Paper para ele aceitar as variantes de tipografia
+import { Text, useTheme } from 'react-native-paper'; 
 
-// 1. Define your interface (The "Label" for the box)
 interface IconTopicProps {
     icon: string;
     text: string;
-    color?: string;
+    color?: string; // Cor opcional (caso queira forçar uma cor específica)
     size?: number;
 }
 
-// 2. Destructure the variables and assign the type AFTER the closing brace
 export default function IconTopic({
     icon,
     text,
-    color = '#1351B4', // Default values work here
-    size = 24          // Changed '24' (string) to 24 (number)
+    color, // Removemos o valor default fixo daqui
+    size = 24
 }: IconTopicProps) {
+    const theme = useTheme();
+
+    // Lógica: Se você passar uma cor via props, usa ela. 
+    // Se não passar, ele usa a cor primária do tema atual (Alto Contraste ou Padrão).
+    const iconColor = color || theme.colors.primary;
+
     return (
         <View style={styles.container}>
             <MaterialCommunityIcons
-                name={icon as any} // 'as any' stops TS from complaining about specific icon names
+                name={icon as any}
                 size={size}
-                color={color}
+                color={iconColor}
             />
-            <Text style={styles.text}>
+            <Text 
+                variant="bodyMedium" 
+                style={[styles.text, { color: theme.colors.onSurface }]}
+            >
                 {text}
             </Text>
         </View>
@@ -34,8 +44,10 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         alignItems: 'center',
+        marginVertical: 4, // Um pequeno espaçamento entre tópicos ajuda na leitura
     },
     text: {
-        marginLeft: 8,
+        marginLeft: 12,
+        flex: 1, // Importante: faz o texto quebrar linha se for muito longo em vez de sair da tela
     },
 });
