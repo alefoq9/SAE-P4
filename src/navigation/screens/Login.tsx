@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-// 1. Importar a tipagem correta da navegação Stack
-import { useNavigation } from '@react-navigation/native';
+import { View, StyleSheet, Image, ScrollView, Platform } from "react-native";
+// Importes para navegação e correção de tipos
+import { useNavigation, CommonActions } from '@react-navigation/native'; 
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { TextInput, Text, useTheme } from 'react-native-paper';
 
-import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from "react-native";
-import { Ionicons } from "@expo/vector-icons";
 import Logo from '../../assets/logo-sae-tagline.png';
-
 import MyButton from '../../components/MyButton';
 import SocialButton from '../../components/SocialButton';
 import TextLink from '../../components/TextLink';
@@ -16,84 +15,79 @@ export default function Login() {
     const [senha, setSenha] = useState("");
     const [esconderSenha, setEsconderSenha] = useState(true);
     
-    // 2. CORREÇÃO: Avisar que esse estado aceita string OU null
-    const [campoFocado, setCampoFocado] = useState<string | null>(null);
+    const theme = useTheme();
 
-    // 3. CORREÇÃO: Tipar o hook de navegação para habilitar o .replace()
+    // Tipagem correta para evitar o erro de 'never' e permitir o reset
     const navigation = useNavigation<NativeStackNavigationProp<any>>();
 
-    const [carregando, setCarregando] = useState(false);
-
     const handleLogin = () => {
-        console.log("Logando...");
-        // Agora o TypeScript sabe que .replace existe!
-        // Certifique-se que o nome 'AppPrincipal' está registrado no seu arquivo de rotas (App.js ou index.tsx)
-        navigation.replace('BemVindo');
-    };
-
-    const getBorderColor = (nomeCampo: string) => {
-        return campoFocado === nomeCampo ? "#1351B4" : "#ccc";
+        // RESET: Limpa o histórico de Login/Cadastro e define o App como tela inicial
+        // Isso resolve o problema do botão voltar aparecer no lugar do menu
+        navigation.dispatch(
+            CommonActions.reset({
+                index: 0,
+                routes: [{ name: 'BemVindo' }], 
+            })
+        );
     };
 
     return (
-        <View style={styles.container}>
+        <ScrollView 
+            contentContainerStyle={[styles.container, { backgroundColor: theme.colors.background }]}
+            keyboardShouldPersistTaps="handled"
+            showsVerticalScrollIndicator={false}
+        >
             <View style={styles.centerContent}>
                 <Image source={Logo} style={styles.logo} />
-                <Text style={styles.title}>Acesso ao Sistema</Text>
+                <Text variant="titleLarge" style={[styles.title, { color: theme.colors.onSurface }]}>
+                    Acesso ao Sistema
+                </Text>
             </View>
             
             {/* Input Email */}
-            <View style={[styles.inputArea, { borderColor: getBorderColor('email') }]}>
-                <TextInput
-                    style={styles.input}
-                    placeholder="E-mail"
-                    placeholderTextColor="#999"
-                    keyboardType="email-address"
-                    autoCapitalize="none"
-                    value={email}
-                    onChangeText={setEmail}
-                    selectionColor="#1351B4"
-                    onFocus={() => setCampoFocado('email')}
-                    onBlur={() => setCampoFocado(null)}
-                 />
-            </View>
+            <TextInput
+                label="E-mail"
+                mode="outlined"
+                value={email}
+                onChangeText={setEmail}
+                keyboardType="email-address"
+                autoCapitalize="none"
+                style={styles.inputPaper}
+                activeOutlineColor={theme.colors.primary}
+                textColor={theme.colors.onSurface}
+            />
 
             {/* Input Senha */}
-            <View style={[styles.inputArea, { borderColor: getBorderColor('senha') }]}> 
-                <TextInput
-                    style={styles.input}
-                    placeholder="Senha"
-                    placeholderTextColor="#999"
-                    secureTextEntry={esconderSenha}
-                    value={senha}
-                    onChangeText={setSenha}
-                    selectionColor="#1351B4"
-                    onFocus={() => setCampoFocado('senha')}
-                    onBlur={() => setCampoFocado(null)}
-                />
-                <TouchableOpacity style={styles.icon} onPress={() => setEsconderSenha(!esconderSenha)}>
-                    <Ionicons name={esconderSenha ? 'eye-off' : 'eye'} size={24} color={campoFocado === 'senha' ? "#1351B4" : "#999"} />
-                </TouchableOpacity>
-            </View>
+            <TextInput
+                label="Senha"
+                mode="outlined"
+                value={senha}
+                onChangeText={setSenha}
+                secureTextEntry={esconderSenha}
+                style={styles.inputPaper}
+                activeOutlineColor={theme.colors.primary}
+                textColor={theme.colors.onSurface}
+                right={
+                    <TextInput.Icon 
+                        icon={esconderSenha ? "eye-off" : "eye"} 
+                        onPress={() => setEsconderSenha(!esconderSenha)} 
+                        color={theme.colors.onSurfaceVariant}
+                    />
+                }
+            />
             
-            {/* Esqueci a Senha */}
-            <View style={{ width: 328 }}>
+            <View style={styles.widthWrapper}>
                 <TextLink 
                     title="Esqueci minha senha" 
-                    onPress={() => alert('Navegar para recuperação de senha')}
+                    onPress={() => alert('Recuperação de senha')}
                 />
             </View>
 
-            {/* 2. Botão de Entrar */}
-            <View style={{ width: 328, marginTop: 20 }}>
-                <MyButton 
-                    title="ENTRAR" 
-                    onPress={handleLogin}
-                />
+            <View style={[styles.widthWrapper, { marginTop: 10 }]}>
+                <MyButton title="ENTRAR" onPress={handleLogin} />
             </View>
 
-            {/* 3. Botão Google */}
-            <View style={{ width: 328 }}>
+            <View style={styles.widthWrapper}>
                 <SocialButton 
                     title="Entrar com Google" 
                     iconName="logo-google" 
@@ -101,77 +95,62 @@ export default function Login() {
                 />
             </View>
             
-            {/* Área de Cadastro / Primeiro Acesso */}
+            {/* Área de Cadastro Corrigida e Alinhada */}
             <View style={styles.cadastroContainer}>
-                <Text style={styles.textoCadastro}>Ainda não tem conta?</Text>
-                
+                <Text style={[styles.textoCadastro, { color: theme.colors.onSurface }]}>
+                    Ainda não tem conta?
+                </Text>
                 <TextLink 
                     title="Primeiro Acesso" 
                     onPress={() => navigation.navigate('Cadastro')}
-                    // Aqui sobrescrevemos o alinhamento para ficar no centro
-                    customStyle={{ alignSelf: 'center', marginTop: 0 }} 
+                    customStyle={styles.linkAjuste} 
                 />
             </View>
-
-        </View>
-    )
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 15,
-    backgroundColor: '#fff',
-  },
-  centerContent: {
-    alignItems: 'center',
-    justifyContent: 'center' 
-  },
-  title: {
-    fontSize: 22,
-    marginBottom: 20,
-    color: '#333'
-  },
-  inputArea: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    width: 328, height: 56,
-    borderWidth: 1.5,
-    borderRadius: 5,
-    paddingHorizontal: 10,
-    backgroundColor: '#fff',
-  },
-  input: {
-    flex: 1,
-    height: '100%',
-    fontSize: 16,
-    color: '#333',
-},
-  icon: {
-    padding: 5
-},
-  logo: {
-    width: 200,
-    height: 100,
-    resizeMode: 'contain',
-    marginBottom: 10
-},
-textoOu: {
-  marginHorizontal: 10,
-  color: '#999',
-  fontSize: 14,
-},
-cadastroContainer: {
-    marginTop: 30, // Dá um espaço dos botões de cima
-    flexDirection: 'row', // Coloca o texto e o link na mesma linha
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 5, // Espaço entre a pergunta e o link
-  },
-  textoCadastro: {
-    color: '#333',
-    fontSize: 14,
-  }
+    container: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingVertical: 40,
+        gap: 12,
+    },
+    centerContent: {
+        alignItems: 'center',
+        justifyContent: 'center' 
+    },
+    title: {
+        marginBottom: 20,
+        fontWeight: 'bold'
+    },
+    inputPaper: {
+        width: 328,
+        backgroundColor: 'transparent',
+    },
+    logo: {
+        width: 220,
+        height: 110,
+        resizeMode: 'contain',
+        marginBottom: 10
+    },
+    widthWrapper: {
+        width: 328,
+    },
+    cadastroContainer: {
+        marginTop: 20,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    textoCadastro: {
+        fontSize: 14,
+    },
+    linkAjuste: {
+        marginTop: 0,
+        marginLeft: 5, // Espaço entre o texto e o link
+        alignSelf: 'center',
+    }
 });
